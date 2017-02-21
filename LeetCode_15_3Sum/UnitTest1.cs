@@ -68,7 +68,7 @@ namespace LeetCode_15_3Sum
 
                         if (item1 + item2 + item3 == 0)
                         {
-                            set.Add(new List<int> { item1, item2, item3 });
+                            set.Add(new int[] {item1, item2, item3}.OrderBy(x=>x).ToList());
                         }
                     }
                 }

@@ -86,38 +86,35 @@ namespace LeetCode_15_3Sum
                     continue;
                 }
 
-                for (int j = i + 1; j < nums.Length; j++)
+                var start = i + 1;
+                var end = nums.Length - 1;
+                while (start < end)
                 {
-                    var item2 = nums[j];
-                    if (item1 + item2 > 0)
+                    if (start > i + 1 && nums[start] == nums[start - 1])
                     {
-                        break;
-                    }
-
-                    if (j > i + 1 && nums[j] == nums[j - 1])
-                    {
+                        start++;
                         continue;
                     }
 
-                    for (int k = j + 1; k < nums.Length; k++)
+                    if (end < nums.Length - 1 && nums[end] == nums[end + 1])
                     {
-                        var item3 = nums[k];
+                        end--;
+                        continue;
+                    }
 
-                        var threeSum = item1 + item2 + item3;
-                        if (threeSum > 0)
-                        {
-                            break;
-                        }
-
-                        if (k > j + 1 && nums[k] == nums[k - 1])
-                        {
-                            continue;
-                        }
-
-                        if (threeSum == 0)
-                        {
-                            set.Add(new List<int> { item1, item2, item3 });
-                        }
+                    var threeSum = nums[start] + nums[end] + item1;
+                    if (threeSum == 0)
+                    {
+                        set.Add(new List<int>() { item1, nums[start], nums[end] });
+                        end--;
+                    }
+                    else if (threeSum > 0)
+                    {
+                        end--;
+                    }
+                    else
+                    {
+                        start++;
                     }
                 }
             }

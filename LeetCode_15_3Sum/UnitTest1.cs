@@ -74,14 +74,14 @@ namespace LeetCode_15_3Sum
 
             for (int i = 0; i < nums.Length - 2; i++)
             {
-                var item1 = nums[i];
+                var a = nums[i];
 
-                if (item1 > 0)
+                if (a > 0)
                 {
                     break;
                 }
 
-                if (i > 0 && nums[i] == nums[i - 1])
+                if (i > 0 && a == nums[i - 1])
                 {
                     continue;
                 }
@@ -90,22 +90,24 @@ namespace LeetCode_15_3Sum
                 var end = nums.Length - 1;
                 while (start < end)
                 {
-                    if (start > i + 1 && nums[start] == nums[start - 1])
+                    var b = nums[start];
+                    if (start > i + 1 && b == nums[start - 1])
                     {
                         start++;
                         continue;
                     }
 
-                    if (end < nums.Length - 1 && nums[end] == nums[end + 1])
+                    var c = nums[end];
+                    if (end < nums.Length - 1 && c == nums[end + 1])
                     {
                         end--;
                         continue;
                     }
 
-                    var threeSum = nums[start] + nums[end] + item1;
+                    var threeSum = a + b + c;
                     if (threeSum == 0)
                     {
-                        set.Add(new List<int>() { item1, nums[start], nums[end] });
+                        set.Add(new List<int>() { a, b, c });
                         end--;
                     }
                     else if (threeSum > 0)

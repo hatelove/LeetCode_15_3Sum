@@ -72,7 +72,7 @@ namespace LeetCode_15_3Sum
             var nums = oNums.OrderBy(x => x).ToArray();
             var set = new List<IList<int>>();
 
-            for (int i = 0; i < nums.Length; i++)
+            for (int i = 0; i < nums.Length - 2; i++)
             {
                 var item1 = nums[i];
 

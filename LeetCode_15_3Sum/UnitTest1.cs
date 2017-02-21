@@ -7,7 +7,7 @@ namespace LeetCode_15_3Sum
 {
     [TestClass]
     public class UnitTest1
-    {        
+    {
         [TestCategory("leetcode")]
         [TestMethod]
         public void Test_From_leetcode_description()
@@ -49,26 +49,52 @@ namespace LeetCode_15_3Sum
 
             ShouldBeEqual(nums, expected);
         }
+
+        [TestMethod]
+        public void nums_3_0_m2_m1_1_2()
+        {
+            var nums = new int[] { 3, 0, -2, -1, 1, 2 };
+            var expected = new List<IList<int>>
+            {
+                new List<int>() {-2, -1, 3},
+                new List<int>() {-2, 0, 2},
+                new List<int>() {-1, 0, -1}
+            };
+
+            ShouldBeEqual(nums, expected);
+        }
     }
 
     public class Solution
     {
-        public IList<IList<int>> ThreeSum(int[] nums)
+        public IList<IList<int>> ThreeSum(int[] oNums)
         {
+            var nums = oNums.OrderBy(x => x).ToArray();
             var set = new HashSet<IList<int>>(new ListComparer());
             for (int i = 0; i < nums.Length; i++)
             {
+                var item1 = nums[i];
                 for (int j = i + 1; j < nums.Length; j++)
                 {
+                    var item2 = nums[j];
+                    if (item1 + item2 > 0)
+                    {
+                        break;
+                    }
+
                     for (int k = j + 1; k < nums.Length; k++)
                     {
-                        var item1 = nums[i];
-                        var item2 = nums[j];
                         var item3 = nums[k];
 
-                        if (item1 + item2 + item3 == 0)
+                        var threeSum = item1 + item2 + item3;
+                        if (threeSum > 0)
                         {
-                            set.Add(new int[] {item1, item2, item3}.OrderBy(x=>x).ToList());
+                            break;
+                        }
+
+                        if (threeSum == 0)
+                        {
+                            set.Add(new List<int> { item1, item2, item3 });
                         }
                     }
                 }

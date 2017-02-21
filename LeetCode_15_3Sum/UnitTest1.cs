@@ -7,8 +7,10 @@ namespace LeetCode_15_3Sum
     [TestClass]
     public class UnitTest1
     {
+        [Ignore]
+        [TestCategory("leetcode")]
         [TestMethod]
-        public void TestMethod1()
+        public void Test_From_leetcode_description()
         {
             var nums = new int[] { -1, 0, 1, 2, -1, -4 };
 
@@ -22,6 +24,8 @@ namespace LeetCode_15_3Sum
 
             expected.ToExpectedObject().ShouldEqual(actual);
         }
+
+
     }
 
     public class Solution

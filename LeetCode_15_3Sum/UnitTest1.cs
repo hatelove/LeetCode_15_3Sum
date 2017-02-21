@@ -1,13 +1,13 @@
 ﻿using ExpectedObjects;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace LeetCode_15_3Sum
 {
     [TestClass]
     public class UnitTest1
-    {
-        [Ignore]
+    {        
         [TestCategory("leetcode")]
         [TestMethod]
         public void Test_From_leetcode_description()
@@ -45,7 +45,7 @@ namespace LeetCode_15_3Sum
         {
             var nums = new int[] { -1, -2, 0, 3 };
             var expected = new List<IList<int>>
-                {new List<int>() {-1, -2, 3}};
+                {new List<int>() {-2, -1, 3}};
 
             ShouldBeEqual(nums, expected);
         }
@@ -55,8 +55,7 @@ namespace LeetCode_15_3Sum
     {
         public IList<IList<int>> ThreeSum(int[] nums)
         {
-            var result = new List<IList<int>>();
-
+            var set = new HashSet<IList<int>>(new ListComparer());
             for (int i = 0; i < nums.Length; i++)
             {
                 for (int j = i + 1; j < nums.Length; j++)
@@ -69,13 +68,28 @@ namespace LeetCode_15_3Sum
 
                         if (item1 + item2 + item3 == 0)
                         {
-                            result.Add(new List<int> { item1, item2, item3 });
+                            set.Add(new List<int> { item1, item2, item3 });
                         }
                     }
                 }
             }
 
-            return result;
+            return set.ToList();
+        }
+    }
+
+    public class ListComparer : IEqualityComparer<IList<int>>
+    {
+        public bool Equals(IList<int> x, IList<int> y)
+        {
+            var sortedX = x.OrderBy(i => i);
+            var sortedY = y.OrderBy(i => i);
+            return sortedX.SequenceEqual(sortedY);
+        }
+
+        public int GetHashCode(IList<int> obj)
+        {
+            return 0;
         }
     }
 }

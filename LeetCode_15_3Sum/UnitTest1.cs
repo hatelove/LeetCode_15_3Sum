@@ -63,7 +63,14 @@ namespace LeetCode_15_3Sum
                 {
                     for (int k = j + 1; k < nums.Length; k++)
                     {
-                        result.Add(new List<int> { nums[i], nums[j], nums[k] });
+                        var item1 = nums[i];
+                        var item2 = nums[j];
+                        var item3 = nums[k];
+
+                        if (item1 + item2 + item3 == 0)
+                        {
+                            result.Add(new List<int> { item1, item2, item3 });
+                        }
                     }
                 }
             }

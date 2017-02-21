@@ -70,7 +70,7 @@ namespace LeetCode_15_3Sum
         public IList<IList<int>> ThreeSum(int[] oNums)
         {
             var nums = oNums.OrderBy(x => x).ToArray();
-            var set = new HashSet<IList<int>>(new ListComparer());
+            var set = new List<IList<int>>();
 
             for (int i = 0; i < nums.Length; i++)
             {
@@ -122,22 +122,7 @@ namespace LeetCode_15_3Sum
                 }
             }
 
-            return set.ToList();
-        }
-    }
-
-    public class ListComparer : IEqualityComparer<IList<int>>
-    {
-        public bool Equals(IList<int> x, IList<int> y)
-        {
-            var sortedX = x.OrderBy(i => i);
-            var sortedY = y.OrderBy(i => i);
-            return sortedX.SequenceEqual(sortedY);
-        }
-
-        public int GetHashCode(IList<int> obj)
-        {
-            return 0;
+            return set;
         }
     }
 }

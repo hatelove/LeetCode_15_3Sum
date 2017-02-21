@@ -1,7 +1,6 @@
 ﻿using ExpectedObjects;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
-using System.Security.Cryptography;
 
 namespace LeetCode_15_3Sum
 {
@@ -37,6 +36,16 @@ namespace LeetCode_15_3Sum
             var nums = new int[] { 0, 0, 0 };
             var expected = new List<IList<int>>
                 {new List<int>() {0, 0, 0}};
+
+            ShouldBeEqual(nums, expected);
+        }
+
+        [TestMethod]
+        public void test_nums_m1_m2_0_3()
+        {
+            var nums = new int[] { -1, -2, 0, 3 };
+            var expected = new List<IList<int>>
+                {new List<int>() {-1, -2, 3}};
 
             ShouldBeEqual(nums, expected);
         }

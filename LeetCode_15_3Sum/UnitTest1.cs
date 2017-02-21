@@ -71,12 +71,19 @@ namespace LeetCode_15_3Sum
         {
             var nums = oNums.OrderBy(x => x).ToArray();
             var set = new HashSet<IList<int>>(new ListComparer());
+
             for (int i = 0; i < nums.Length; i++)
             {
                 var item1 = nums[i];
+
                 if (item1 > 0)
                 {
                     break;
+                }
+
+                if (i > 0 && nums[i] == nums[i - 1])
+                {
+                    continue;
                 }
 
                 for (int j = i + 1; j < nums.Length; j++)
@@ -87,6 +94,11 @@ namespace LeetCode_15_3Sum
                         break;
                     }
 
+                    if (j > i + 1 && nums[j] == nums[j - 1])
+                    {
+                        continue;
+                    }
+
                     for (int k = j + 1; k < nums.Length; k++)
                     {
                         var item3 = nums[k];
@@ -95,6 +107,11 @@ namespace LeetCode_15_3Sum
                         if (threeSum > 0)
                         {
                             break;
+                        }
+
+                        if (k > j + 1 && nums[k] == nums[k - 1])
+                        {
+                            continue;
                         }
 
                         if (threeSum == 0)

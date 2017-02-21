@@ -74,6 +74,11 @@ namespace LeetCode_15_3Sum
             for (int i = 0; i < nums.Length; i++)
             {
                 var item1 = nums[i];
+                if (item1 > 0)
+                {
+                    break;
+                }
+
                 for (int j = i + 1; j < nums.Length; j++)
                 {
                     var item2 = nums[j];

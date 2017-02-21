@@ -91,6 +91,11 @@ namespace LeetCode_15_3Sum
                 while (start < end)
                 {
                     var b = nums[start];
+                    if (a + b > 0)
+                    {
+                        break;
+                    }
+
                     if (start > i + 1 && b == nums[start - 1])
                     {
                         start++;

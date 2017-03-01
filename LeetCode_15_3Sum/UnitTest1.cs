@@ -16,8 +16,8 @@ namespace LeetCode_15_3Sum
 
             var expected = new List<IList<int>>
             {
-                new List<int> {-1, 0, 1},
                 new List<int> {-1, -1, 2},
+                new List<int> {-1, 0, 1},
             };
 
             ShouldBeEqual(nums, expected);
@@ -58,7 +58,7 @@ namespace LeetCode_15_3Sum
             {
                 new List<int>() {-2, -1, 3},
                 new List<int>() {-2, 0, 2},
-                new List<int>() {-1, 0, -1}
+                new List<int>() {-1, 0, 1}
             };
 
             ShouldBeEqual(nums, expected);
@@ -74,59 +74,77 @@ namespace LeetCode_15_3Sum
 
             for (int i = 0; i < nums.Length - 2; i++)
             {
-                var a = nums[i];
-
-                if (a > 0)
+                if (nums[i] <= 0)
                 {
-                    break;
-                }
-
-                if (i > 0 && a == nums[i - 1])
-                {
-                    continue;
-                }
-
-                var start = i + 1;
-                var end = nums.Length - 1;
-                while (start < end)
-                {
-                    var b = nums[start];
-                    if (a + b > 0)
+                    if (isCurrentNumberSameWithPreviousOne(i, nums))
                     {
-                        break;
-                    }
-
-                    if (start > i + 1 && b == nums[start - 1])
-                    {
-                        start++;
                         continue;
                     }
 
-                    var c = nums[end];
-                    if (end < nums.Length - 1 && c == nums[end + 1])
-                    {
-                        end--;
-                        continue;
-                    }
+                    var start = i + 1;
+                    var end = nums.Length - 1;
 
-                    var threeSum = a + b + c;
-                    if (threeSum == 0)
+                    while (StillHasNumbersNeedToCompare(start, end) && IsTwoSumLessThanOrEqualZero(nums, i, start))
                     {
-                        set.Add(new List<int>() { a, b, c });
-                        end--;
-                    }
-                    else if (threeSum > 0)
-                    {
-                        end--;
-                    }
-                    else
-                    {
-                        start++;
+                        if (IsCurrentStartSameWithPreviousOne(start, i, nums))
+                        {
+                            start++;
+                            continue;
+                        }
+
+                        if (IsCurrentEndSameWithPreviousOne(end, nums))
+                        {
+                            end--;
+                            continue;
+                        }
+
+                        var threeSum = nums[i] + nums[start] + nums[end];
+                        if (threeSum == 0)
+                        {
+                            set.Add(new List<int>() { nums[i], nums[start], nums[end] });
+                            end--;
+                        }
+                        else if (threeSum > 0)
+                        {
+                            end--;
+                        }
+                        else
+                        {
+                            start++;
+                        }
                     }
                 }
             }
 
             return set;
+        }
+
+        private static bool IsTwoSumLessThanOrEqualZero(int[] nums, int i, int start)
+        {
+            return nums[i] + nums[start] <= 0;
+        }
+
+        private static bool StillHasNumbersNeedToCompare(int start, int end)
+        {
+            return start < end;
+        }
+
+        private static bool isCurrentNumberSameWithPreviousOne(int i, int[] nums)
+        {
+            var isNotFirstInteger = i > 0;
+            return isNotFirstInteger && nums[i] == nums[i - 1];
+        }
+
+        private static bool IsCurrentEndSameWithPreviousOne(int end, int[] nums)
+        {
+            var isNotFirstEnd = end < nums.Length - 1;
+            return isNotFirstEnd && nums[end] == nums[end + 1];
+        }
+
+        private static bool IsCurrentStartSameWithPreviousOne(int start, int i, int[] nums)
+        {
+            var isNotFirstStart = start > i + 1;
+            return isNotFirstStart && nums[start] == nums[start - 1];
         }
     }
 }
